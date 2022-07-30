@@ -22,27 +22,28 @@ class BusinessCard extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
-          color: const Color.fromRGBO(7, 34, 39, 1),
+          color: const Color.fromRGBO(0, 120, 170,1),
           child: Column(
             children: [
               SizedBox(height: 25,),
               Text(
                   "$business",
-                style: GoogleFonts.montserrat(fontSize: 20,color:Color.fromRGBO(174, 254, 255, 1)),
+                style: GoogleFonts.montserrat(fontSize: 15,color:Colors.white,fontWeight: FontWeight.bold),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 25,15,15),
                 child: Text(
                       "text ever since the 1500s, when an unknown printer took"
                       "a galley of type and scrambled it to make a type specimen."
-                      "bookIt has survived not only five centuries, but also the leap",
-                  style: GoogleFonts.montserrat(fontSize: 20.0,color: Colors.white70),
+                      "book It survived not only five centuries, but also the leap",
+                  style: GoogleFonts.montserrat(fontSize: 20.0,color: Colors.white,fontWeight: FontWeight.w300,),
+                  textAlign: TextAlign.justify,
 
                 ),
               ),
               Text(
                     "To Know More Tap",
-                    style: GoogleFonts.montserrat(fontSize: 15.0,color: Colors.white),
+                    style: GoogleFonts.montserrat(fontSize: 15.0,color: Colors.white,fontWeight: FontWeight.bold),
                   ),
             ],
           ),

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:test_alpha/pages/Home/Carousal.dart';
 import 'package:test_alpha/pages/Home/Home.dart';
+import 'package:test_alpha/pages/inside/Business_search.dart';
 import 'package:test_alpha/pages/logscreens/ForgotPassword.dart';
 import 'package:test_alpha/pages/logscreens/SignUp.dart';
 import 'package:test_alpha/pages/logscreens/explore.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.black,
         secondaryHeaderColor: Colors.black,
-        canvasColor:  const Color.fromRGBO(53, 133, 139, 1)
+        canvasColor:  const Color.fromRGBO(246, 246, 246,1)
       ),
       debugShowCheckedModeBanner: false,
       home: const Explore(),
