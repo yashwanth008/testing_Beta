@@ -1,90 +1,92 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:test_alpha/Models/news_class.dart';
-import 'package:test_alpha/Models/selectdata.dart';
-import 'package:test_alpha/Servies/news_apiServies.dart';
+import 'package:http/http.dart' as http;
+import 'package:test_alpha/Secret/businessCode.dart';
+import 'package:test_alpha/Models/items.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  final String? businessName;
+  String? url;
+  Home({this.businessName});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Home> createState() => _HomeState();
 }
 
-class _HomePageState extends State<HomePage> {
-  NewsApiServies client = NewsApiServies();
-  List<CategorieModel> categories = <CategorieModel>[];
+class _HomeState extends State<Home> {
+  List<Items> _Content = <Items>[];
+  bool _isloading = true;
+
+  Future<List<Items>> fetchContent() async {
+    var response = await http.get(Uri.parse(widget.url!));
+    print(response.body);
+    var contents = <Items>[];
+
+    if (response.statusCode == 200) {
+      var contentsJson = json.decode(response.body);
+      for (var contentJson in contentsJson) {
+        contents.add(Items.fromJson(contentJson));
+        print(contentJson["product_name"]);
+        print(contentJson["sku_id"]);
+      }
+      //print(contents);
+    }
+    return contents;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BuisnessCode obj = BuisnessCode();
+    String? urlCode = obj.Code[widget.businessName];
+    widget.url =
+    "https://api.test.esamudaay.com/api/v1/businesses/$urlCode/report";
+    fetchContent().then((value) {
+      setState(() {
+        _isloading = false;
+        _Content.addAll(value);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          'NewsIndia',
-          style: GoogleFonts.montserrat(
-            color: Colors.blue,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0.0,
+        title: Text("${widget.businessName}"),
       ),
-
-      drawer: const Drawer(),
-      // body:_isLoading ? Center(child: CircularProgressIndicator(),):
-     body: Container(
-        child: Column(
-          children:<Widget>[
-            const SizedBox(height: 15,),
-            /// Categories
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              height: 30,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    return CateTile(
-                      categoryName: categories[index].categorieName,
-                    );
-                  }),
+      body: _isloading
+          ? const Center(
+        child:  CircularProgressIndicator(),
+      )
+          : Padding(
+          padding:EdgeInsets.fromLTRB(2,15,2, 0),
+      child:ListView.builder(
+        itemBuilder: (context, index) {
+          return Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12)
             ),
-
-
-          ],
-        ),
-      ),
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                children: [
+                  Text(_Content[index].business!),
+                  Text(_Content[index].product!),
+                  Text("${_Content[index].id}"),
+                  // ListView.builder(
+                  //     itemCount: 10,
+                  //     itemBuilder: (context, index) {
+                  //       return Text("hello");
+                  //     })
+                ],
+              ),
+            ),
+          );
+        },
+        itemCount: _Content.length,
+      ),)
     );
   }
 }
-
-class CateTile extends StatelessWidget{
-  final categoryName;
-  const CateTile({super.key, this.categoryName});
-  @override
-  Widget build(BuildContext context){
-    return GestureDetector(
-      onTap: (){
-
-      },
-      child: Container(
-        height: 60,
-        width: 120,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Colors.grey,
-          borderRadius: BorderRadius.circular(25)
-        ),
-        margin:const EdgeInsets.only(right: 16),
-        child: Text(
-          categoryName,
-          style: GoogleFonts.montserrat(
-            color: Colors.black
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-

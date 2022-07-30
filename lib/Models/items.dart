@@ -1,36 +1,39 @@
-class Items{
-  String? product_name;
-  String? business_name;
-  int? sku_id;
-  List<String> failure_reasons;
+class Items {
+  String? product;
+  String? business;
+  int? id;
+  // List failure;
 
-  Items(
-      {
-        this.product_name,
-        this.business_name,
-        this.sku_id,
-        required this.failure_reasons
+  Items({this.product, this.business, this.id});
 
-      }
-      );
-
-  factory Items.fromJson(dynamic json){
-    return Items(
-        product_name:json['product_name'] as String,
-        business_name:json['business_name'] as String,
-        sku_id:json["sku_id"] ,
-        failure_reasons: json["failure_reasons"]
-    );
-
-  }
-//sending data to our server
-  Map<String,dynamic> toMap(){
-    return {
-      'product_name': product_name,
-      'business_name':business_name,
-      'sku_id':sku_id,
-      'failure_reasons':failure_reasons,
-    };
+  Items.fromJson(Map<String, dynamic> json) {
+    product = json["product_name"];
+    business = json["business_name"];
+    id = json["sku_id"];
+    // failure = json["failure_reasons"];
   }
 }
-
+// class Items {
+//   int? id;
+//   String? product;
+//   String? business;
+//   String? failure;
+//
+//   Items({this.id, this.product, this.business, this.failure});
+//
+//   Items.fromJson(Map<String, dynamic> json) {
+//     id = json['sku_id'];
+//     product = json['product_name'];
+//     business = json['business_name'];
+//     failure = json['failure_reasons'];
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['sku_id'] = this.id;
+//     data['product_name'] = this.product;
+//     data['business_name'] = this.business;
+//     data['failure_reasons'] = this.failure;
+//     return data;
+//   }
+// }

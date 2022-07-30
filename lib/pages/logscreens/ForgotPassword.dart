@@ -21,7 +21,7 @@ class _resetPasswordState extends State<resetPassword> {
   Widget build(BuildContext context) {
     return SafeArea(
       child:Scaffold(
-        backgroundColor: Colors.black26,
+        backgroundColor: Colors.white,
 
         body: Form(
           key: _formKey,
@@ -30,10 +30,10 @@ class _resetPasswordState extends State<resetPassword> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children:[
                const SizedBox(height: 35,),
-                const Text("Recover Password",style: TextStyle(fontSize: 35,color: Colors.deepPurple),),
+                const Text("Recover Password",style: TextStyle(fontSize: 35,color: Colors.black),),
                 const SizedBox(height: 145,),
                 TextFormField(
-                    style: const TextStyle(color:Colors.deepPurple,fontSize: 20.0),
+                    style: const TextStyle(color:Colors.black,fontSize: 20.0),
                     autofocus: false,
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -52,11 +52,11 @@ class _resetPasswordState extends State<resetPassword> {
                     },
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
-                      prefixIcon:const Icon(Icons.mail,color: Colors.deepPurple,),
+                      prefixIcon:const Icon(Icons.mail,color: Colors.black,),
                       contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                       hintText: "Email",
-                      hintStyle: const TextStyle(color: Colors.deepPurple),
-                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: const BorderSide(color:Colors.deepPurple)),
+                      hintStyle: const TextStyle(color: Colors.black),
+                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: const BorderSide(color:Colors.black)),
                     )),
                 const SizedBox(height: 35,),
                 Center(
@@ -66,10 +66,12 @@ class _resetPasswordState extends State<resetPassword> {
                       Fluttertoast.showToast(msg:"Check Your Mail"),
                     });
                   },
-
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.black
+                    ),
                     child: const Text(
                       'Send Request',
-                      style: TextStyle(fontSize: 20.0,color: Colors.deepPurple),
+                      style: TextStyle(fontSize: 20.0,color: Colors.black),
                     ),
                   ),
                 ),

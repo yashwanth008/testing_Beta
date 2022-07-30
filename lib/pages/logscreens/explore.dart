@@ -143,7 +143,7 @@ class _ExploreState extends State<Explore> {
                         ),
                       ),
                       TextButton(onPressed: (){
-                        Navigator.pushNamed(context, 'ForgotPassword');
+                        Navigator.pushNamed(context, '/ForgotPassword');
                       },
 
                           child:Text(
